@@ -1,0 +1,94 @@
+spring:
+  ai:
+    chat:
+      client:
+        observations:
+          log-prompt: true
+          log-completion: true
+      observations:
+        # 设置为 true 以在追踪中包含提示词内容
+        include-prompt: true
+        # 设置为 true 以在追踪中包含模型输出内容
+        include-completion: true
+        log-prompt: true
+        log-completion: true
+
+
+    image:
+      observations:
+        log-prompt: true
+
+    # 启用可观测性
+    observability:
+      enabled: true
+      tool-calling:
+        enabled: true  # 启用工具调用追踪
+        log-prompt: true
+    alibaba:
+      arms:
+        enabled: true
+        tool:
+          enabled: true
+        model:
+          capture-input: true
+          capture-output: true
+
+
+
+
+  application:
+    name: flight-boot
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0  # 开发环境设为 1.0 表示100%采样，生产环境可适当降低
+  otlp:
+    tracing:
+      export:
+        enabled: true
+      # Langfuse 的 OTLP 接收端点
+      endpoint: "http://localhost:3000/api/public/otel"
+    metrics:
+      export:
+        enabled: false
+    logging:
+      export:
+        enabled: false
+
+
+otel:
+  exporter:
+    otlp:
+      # 本地 Langfuse 实例的 OTLP HTTP 端点
+      endpoint: "http://localhost:3000/api/public/otel"
+      # 协议使用 http/protobuf
+      protocol: http/protobuf
+      headers:
+        # 将 [Base64-Encoded-Credentials] 替换为您上一步生成的base64字符串
+        Authorization: "Basic cGstbGYtNmE2YThlMWYtZGFmZi00NjcwLTkwMDMtMzEwZWJjMjlmYWM1OnNrLWxmLTJmY2QzZWJlLWUzYjQtNDNhZi05MmJmLWJiMjcxZWU2ZDI3Yw=="
+  traces:
+    exporter: otlp, console
+  metrics:
+    exporter: none # Langfuse 主要关注追踪，可禁用指标导出
+  logs:
+    exporter: none # Langfuse 不支持日志，禁用之
+
+
+
+logging:
+  level:
+    # Reactor Netty HTTP 客户端日志
+    reactor.netty.http.client: DEBUG
+
+    # Spring WebClient 日志
+    org.springframework.web.reactive.function.client.WebClient: DEBUG
+
+    # DashScope API 日志
+    com.alibaba.cloud.ai.dashscope: DEBUG
+
+    # Spring AI 核心日志
+    org.springframework.ai: DEBUG
+
+
