@@ -70,10 +70,10 @@
 		</dependency>
 
 		<!-- OpenTelemetry -->
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-tracing</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.micrometer</groupId>-->
+<!--			<artifactId>micrometer-tracing</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-tracing-bridge-otel</artifactId>
@@ -97,18 +97,17 @@
 		</dependency>
 
 		<!-- Introduce observability module -->
-
 		<dependency>
 			<groupId>com.alibaba.cloud.ai</groupId>
 			<artifactId>spring-ai-alibaba-autoconfigure-arms-observation</artifactId>
 			<version>1.1.2.1</version>
 		</dependency>
 
-		<!-- For connecting micrometer generated metrics to otlp format -->
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-otlp</artifactId>
-		</dependency>
+<!--		&lt;!&ndash; For connecting micrometer generated metrics to otlp format &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>io.micrometer</groupId>-->
+<!--			<artifactId>micrometer-registry-otlp</artifactId>-->
+<!--		</dependency>-->
 
 	</dependencies>
 

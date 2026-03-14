@@ -21,6 +21,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.opentelemetry.api.trace.Span;
 import reactor.core.publisher.Flux;
 
 
@@ -37,6 +39,13 @@ public class AssistantController {
 	@RequestMapping(path="/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<String> chat(@RequestParam(name = "chatId") String chatId,
 							 @RequestParam(name = "userMessage") String userMessage) {
+		// 1. 获取当前的 Span (由Spring MVC自动创建)
+		Span currentSpan = Span.current();
+
+		// 2. 设置 userId 属性
+		//    Langfuse 会自动识别 'user.id' 这个 Key
+		currentSpan.setAttribute("user.id", "123456");
+		currentSpan.setAttribute("session.id", chatId);
 		return agent.chat(chatId, userMessage);
 	}
 

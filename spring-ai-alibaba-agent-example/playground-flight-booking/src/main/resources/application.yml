@@ -13,7 +13,6 @@ spring:
         log-prompt: true
         log-completion: true
 
-
     image:
       observations:
         log-prompt: true
@@ -24,6 +23,12 @@ spring:
       tool-calling:
         enabled: true  # 启用工具调用追踪
         log-prompt: true
+#    对接langfuse参考，（pom包依赖，以及application配置文件）
+#    langfuse官方文档：https://langfuse.com/integrations/frameworks/spring-ai
+#    langfuse官方文档：https://langfuse.com/docs/observability/features/sessions
+#    spring ai alibaba官方文档：https://java2ai.com/ecosystem/admin/quick-start
+
+
     alibaba:
       arms:
         enabled: true
@@ -32,10 +37,6 @@ spring:
         model:
           capture-input: true
           capture-output: true
-
-
-
-
   application:
     name: flight-boot
 
